@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Rocket/Core.h>
+#include <Rml/Core.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <string>
 
@@ -14,7 +14,7 @@ namespace OT
 	{
 	public:
 		GUIManager * manager;
-		Rocket::Core::Context * context;
+		Rml::Core::Context * context;
 		
 		GUI(std::string name, GUIManager * manager);
 		~GUI();
@@ -22,6 +22,6 @@ namespace OT
 		bool handleEvent(sf::Event & event);
 		void draw();
 		
-		Rocket::Core::ElementDocument * loadDocument(Path path);
+		Rml::Core::ElementDocument * loadDocument(Path path);
 	};
 }

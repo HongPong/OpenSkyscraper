@@ -1,5 +1,5 @@
 #include <cassert>
-#include <Rocket/Core/Element.h>
+#include <Rml/Core/Element.h>
 #include <sstream>
 #include "Game.h"
 #include "TimeWindow.h"
@@ -36,7 +36,7 @@ void TimeWindow::reload()
 		snprintf(c, 128, "div#rating.r%i { background-image-t: %ipx %ipx; }", i, i*22, i*22+22);
 		style += c;
 	}
-	Rocket::Core::StyleSheet * sheet = Rocket::Core::Factory::InstanceStyleSheetString(style.c_str());
+	Rml::Core::StyleSheet * sheet = Rml::Core::Factory::InstanceStyleSheetString(style.c_str());
 	window->SetStyleSheet(window->GetStyleSheet()->CombineStyleSheet(sheet));
 	
 	updateRating();
@@ -50,8 +50,8 @@ void TimeWindow::updateTime()
 	
 	window->GetElementById("watch")->SetAttribute<float>("time", t.hour);
 	
-	Rocket::Core::Element * weekday = window->GetElementById("date-weekday");
-	Rocket::Core::Element * weekend = window->GetElementById("date-weekend");
+	Rml::Core::Element * weekday = window->GetElementById("date-weekday");
+	Rml::Core::Element * weekend = window->GetElementById("date-weekend");
 	weekday->SetInnerRML(t.day == 0 ? "1st WD" : "2nd WD");
 	weekday->SetProperty("display", (t.day == 2 ? "none" : "inline"));
 	weekend->SetProperty("display", (t.day != 2 ? "none" : "inline"));
@@ -80,7 +80,7 @@ void TimeWindow::updateRating()
 
 void TimeWindow::updateFunds()
 {
-	Rocket::Core::Element * e = window->GetElementById("funds");
+	Rml::Core::Element * e = window->GetElementById("funds");
 	assert(e);
 	e->SetInnerRML(formatMoney(game->funds).c_str());
 }
@@ -90,7 +90,7 @@ void TimeWindow::updatePopulation()
 	char c[32];
 	snprintf(c, 32, "%i", game->population);
 	
-	Rocket::Core::Element * e = window->GetElementById("population");
+	Rml::Core::Element * e = window->GetElementById("population");
 	assert(e);
 	e->SetInnerRML(c);
 }

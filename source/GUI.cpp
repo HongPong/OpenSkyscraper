@@ -1,6 +1,6 @@
 #include <cassert>
 #ifdef BUILD_DEBUG
-#include <Rocket/Debugger/Debugger.h>
+#include <Rml/Debugger/Debugger.h>
 #endif
 
 #include "Application.h"
@@ -18,7 +18,7 @@ GUI::GUI(std::string name, GUIManager * manager)
 	this->manager = manager;
 	unsigned width = manager->window->getView().getSize().x;
 	unsigned height = manager->window->getView().getSize().y;
-	context = Rocket::Core::CreateContext(name.c_str(), Rocket::Core::Vector2i(width, height));
+	context = Rml::Core::CreateContext(name.c_str(), Rml::Core::Vector2i(width, height));
 	assert(context && "unable to initialize context");
 }
 
@@ -32,7 +32,7 @@ bool GUI::handleEvent(sf::Event & event)
 {
 	switch (event.type) {
 		case sf::Event::Resized:
-			this->context->SetDimensions(Rocket::Core::Vector2i(
+			this->context->SetDimensions(Rml::Core::Vector2i(
 											manager->window->getView().getSize().x,
 											manager->window->getView().getSize().y));
 			return true;
@@ -78,11 +78,11 @@ void GUI::draw()
 	glMatrixMode(GL_MODELVIEW);
 }
 
-Rocket::Core::ElementDocument * GUI::loadDocument(Path path)
+Rml::Core::ElementDocument * GUI::loadDocument(Path path)
 {
 	DataManager::Paths paths = App->data.paths(Path("gui").down(path));
 	for (DataManager::Paths::iterator p = paths.begin(); p != paths.end(); p++) {
-		Rocket::Core::ElementDocument * document = context->LoadDocument((*p).c_str());
+		Rml::Core::ElementDocument * document = context->LoadDocument((*p).c_str());
 		if (document) {
 			LOG(DEBUG, "loaded GUI document '%s'", path.c_str());
 			return document;

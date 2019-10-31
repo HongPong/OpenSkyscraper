@@ -5,7 +5,7 @@
 #include <cstring>
 #include <ctime>
 #include <iostream>
-#include <Rocket/Debugger.h>
+#include <Rml/Debugger.h>
 
 #include "Application.h"
 #include "Game.h"
@@ -150,28 +150,28 @@ void Application::init()
 	}
 	rootGUI = new GUI("root", &gui);
 #ifdef BUILD_DEBUG
-	Rocket::Debugger::Initialise(rootGUI->context);
+	Rml::Debugger::Initialise(rootGUI->context);
 #endif
 
 	//Additional GUI stuff.
-	Rocket::Core::DecoratorInstancer * instancer = new TimeWindowWatchInstancer;
-	Rocket::Core::Factory::RegisterDecoratorInstancer("watch", instancer);
+	Rml::Core::DecoratorInstancer * instancer = new TimeWindowWatchInstancer;
+	Rml::Core::Factory::RegisterDecoratorInstancer("watch", instancer);
 	instancer->RemoveReference();
 
 	//Load GUI fonts.
-	fonts.loadIntoRocket("Jura-Regular.ttf");
-	fonts.loadIntoRocket("Jura-Medium.ttf");
-	fonts.loadIntoRocket("Jura-Light.ttf");
-	fonts.loadIntoRocket("Jura-DemiBold.ttf");
-	fonts.loadIntoRocket("Play-Regular.ttf");
-	fonts.loadIntoRocket("Play-Bold.ttf");
+	fonts.loadIntoRml("Jura-Regular.ttf");
+	fonts.loadIntoRml("Jura-Medium.ttf");
+	fonts.loadIntoRml("Jura-Light.ttf");
+	fonts.loadIntoRml("Jura-DemiBold.ttf");
+	fonts.loadIntoRml("Play-Regular.ttf");
+	fonts.loadIntoRml("Play-Bold.ttf");
 
 	//DEBUG: load some GUI
-	/*Path rocket = data.paths("debug/rocket").front();
-	Rocket::Core::FontDatabase::LoadFontFace(rocket.down("Delicious-Bold.otf").c_str());
-	Rocket::Core::FontDatabase::LoadFontFace(rocket.down("Delicious-BoldItalic.otf").c_str());
-	Rocket::Core::FontDatabase::LoadFontFace(rocket.down("Delicious-Italic.otf").c_str());
-	Rocket::Core::FontDatabase::LoadFontFace(rocket.down("Delicious-Roman.otf").c_str());*/
+	/*Path rml = data.paths("debug/rml").front();
+	Rml::Core::LoadFontFace(rml.down("Delicious-Bold.otf").c_str());
+	Rml::Core::LoadFontFace(rml.down("Delicious-BoldItalic.otf").c_str());
+	Rml::Core::LoadFontFace(rml.down("Delicious-Italic.otf").c_str());
+	Rml::Core::LoadFontFace(rml.down("Delicious-Roman.otf").c_str());*/
 
 	Game * game = new Game(*this);
 	pushState(game);
@@ -237,9 +237,9 @@ void Application::loop()
 				}
 #ifdef BUILD_DEBUG
 				if (event.key.code == sf::Keyboard::F8) {
-					bool visible = !Rocket::Debugger::IsVisible();
-					LOG(DEBUG, "Rocket::Debugger %s", (visible ? "on" : "off"));
-					Rocket::Debugger::SetVisible(visible);
+					bool visible = !Rml::Debugger::IsVisible();
+					LOG(DEBUG, "Rml::Debugger %s", (visible ? "on" : "off"));
+					Rml::Debugger::SetVisible(visible);
 				}
 #endif
 			}

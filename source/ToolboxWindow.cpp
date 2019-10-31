@@ -1,5 +1,5 @@
 #include <cassert>
-#include <Rocket/Core/Element.h>
+#include <Rml/Core/Element.h>
 #include "Game.h"
 #include "ToolboxWindow.h"
 
@@ -25,7 +25,7 @@ void ToolboxWindow::reload()
 	assert(window);
 	window->Show();
 	
-	Rocket::Core::ElementList tmp;
+	Rml::Core::ElementList tmp;
 	window->GetElementsByTagName(tmp, "button");
 	for (int i = 0; i < tmp.size(); i++) {
 		tmp[i]->AddEventListener("click", this);
@@ -43,16 +43,16 @@ void ToolboxWindow::reload()
 		snprintf(style, 512, "button#%s { background-image-s: %ipx %ipx; }", id, prototype->icon*32, prototype->icon*32+32);
 		LOG(DEBUG, "style for %s: %s", prototype->name.c_str(), style);
 		
-		Rocket::Core::StyleSheet * sheet = Rocket::Core::Factory::InstanceStyleSheetString(style);
+		Rml::Core::StyleSheet * sheet = Rml::Core::Factory::InstanceStyleSheetString(style);
 		assert(sheet && "unable to instantiate stylesheet");
 		window->SetStyleSheet(window->GetStyleSheet()->CombineStyleSheet(sheet));
 		sheet->RemoveReference();
 		
-		Rocket::Core::XMLAttributes attributes;
+		Rml::Core::XMLAttributes attributes;
 		attributes.Set("class", "item");
 		attributes.Set("id", id);
 		
-		Rocket::Core::Element * button = Rocket::Core::Factory::InstanceElement(NULL, "button", "button", attributes);
+		Rml::Core::Element * button = Rml::Core::Factory::InstanceElement(NULL, "button", "button", attributes);
 		assert(button && "unable to instantiate button");
 		
 		button->AddEventListener("click", this);
@@ -66,10 +66,10 @@ void ToolboxWindow::reload()
 	updateTool();
 }
 
-void ToolboxWindow::ProcessEvent(Rocket::Core::Event & event)
+void ToolboxWindow::ProcessEvent(Rml::Core::Event & event)
 {
 	LOG(DEBUG, "%s received", event.GetType().CString());
-	Rocket::Core::Element * element = event.GetCurrentElement();
+	Rml::Core::Element * element = event.GetCurrentElement();
 	if (buttons.count(element)) {
 		game->selectTool(element->GetId().CString());
 		event.StopPropagation();
@@ -86,7 +86,7 @@ void ToolboxWindow::updateSpeed()
 	for (int i = 0; i < 4; i++) {
 		char c[32];
 		snprintf(c, 32, "speed%i", i);
-		Rocket::Core::Element * button = window->GetElementById(c);
+		Rml::Core::Element * button = window->GetElementById(c);
 		assert(button);
 		button->SetClass("selected", game->speedMode == i);
 	}

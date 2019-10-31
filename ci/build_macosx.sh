@@ -26,10 +26,10 @@ SFML_URL="http://sourceforge.net/projects/sfml/files/sfml/$SFML_VERSION/SFML-$SF
 SFML_DIR="$BUILD_DIR/sfml-$SFML_VERSION"
 SFML_BUILD_DIR="$SFML_DIR/lib64"
 
-ROCKET_VERSION="1.2.1"
-ROCKET_URL="https://github.com/lloydw/libRocket/archive/release-$ROCKET_VERSION.zip"
-ROCKET_DIR="$BUILD_DIR/rocket-$ROCKET_VERSION"
-ROCKET_BUILD_DIR="$ROCKET_DIR/_build"
+RML_VERSION="2.0"
+RML_URL="https://github.com/mikke89/RmlUi/archive/$RML_VERSION.zip"
+RML_DIR="$BUILD_DIR/rml-$RML_VERSION"
+RML_BUILD_DIR="$RML_DIR/_build"
 
 if [ -z "$1" ]; then
 	echo "usage: $0 OSS_VERSION"
@@ -99,29 +99,29 @@ if [ ! -d "$SFML_BUILD_DIR/SFML.framework" ]; then
 	fi
 fi
 
-# Build libRocket if necessary.
-if [ ! -f "$ROCKET_BUILD_DIR/lib/libRocketCore.a" ]; then
-	echo_main "Installing libRocket $ROCKET_VERSION"
+# Build RML (formerly libRocket) if necessary.
+if [ ! -f "$RML_BUILD_DIR/lib/libRmlCore.a" ]; then
+	echo_main "Installing libRml $RML_VERSION"
 
-	if [ ! -d "$ROCKET_DIR" ]; then
+	if [ ! -d "$RML_DIR" ]; then
 		# Download the packaged version if necessary.
-		ROCKET_PKG="$BUILD_DIR/$(basename "$ROCKET_URL")"
-		if [ ! -f "$ROCKET_PKG" ]; then
+		RML_PKG="$BUILD_DIR/$(basename "$RML_URL")"
+		if [ ! -f "$RML_PKG" ]; then
 			echo_sub "downloading"
-			curl -L -o "$ROCKET_PKG" "$ROCKET_URL"
+			curl -L -o "$RML_PKG" "$RML_URL"
 		fi
 
 		# Extract the archive.
 		echo_sub "unpacking"
-		unzip -q -d "$BUILD_DIR" "$ROCKET_PKG"
-		mv "$(dirname "$ROCKET_PKG")/libRocket-$(basename -s .zip "$ROCKET_PKG")" "$ROCKET_DIR"
+		unzip -q -d "$BUILD_DIR" "$RML_PKG"
+		mv "$(dirname "$RML_PKG")/libRml-$(basename -s .zip "$RML_PKG")" "$RML_DIR"
 	fi
 
 
 	echo_sub "building"
 	LASTWD="$PWD"
-	cd "$ROCKET_DIR/Build"
-	cmake -D BUILD_PYTHON_BINDINGS=OFF -D BUILD_SAMPLES=OFF -D BUILD_SHARED_LIBS=OFF -D CMAKE_INSTALL_PREFIX="$ROCKET_BUILD_DIR" -D CMAKE_BUILD_TYPE="Release" CMAKE_OSX_ARCHITECTURES="i386;x86_64" .
+	cd "$RML_DIR/Build"
+	cmake -D BUILD_PYTHON_BINDINGS=OFF -D BUILD_SAMPLES=OFF -D BUILD_SHARED_LIBS=OFF -D CMAKE_INSTALL_PREFIX="$RML_BUILD_DIR" -D CMAKE_BUILD_TYPE="Release" CMAKE_OSX_ARCHITECTURES="i386;x86_64" .
 	make
 	make install
 	cd "$LASTWD"
@@ -135,7 +135,7 @@ fi
 cd "$OSS_DIR"
 
 echo_sub "compiling"
-cmake -D SFMLDIR="$SFML_BUILD_DIR" -D MSPACKDIR="$MSPACK_BUILD_DIR" -D ROCKETDIR="$ROCKET_BUILD_DIR" -D CMAKE_BUILD_TYPE="Release" -D CMAKE_OSX_ARCHITECTURES="i386;x86_64" -D VERSION="$OSS_VERSION" "$PROJECT_DIR"
+cmake -D SFMLDIR="$SFML_BUILD_DIR" -D MSPACKDIR="$MSPACK_BUILD_DIR" -D RMLDIR="$RML_BUILD_DIR" -D CMAKE_BUILD_TYPE="Release" -D CMAKE_OSX_ARCHITECTURES="i386;x86_64" -D VERSION="$OSS_VERSION" "$PROJECT_DIR"
 make
 make install
 

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Rocket/Core.h>
+#include <Rml/Core.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "Rocket/Renderer.h"
-#include "Rocket/SystemInterface.h"
+#include "Rml/Renderer.h"
+#include "Rml/SystemInterface.h"
 
 namespace OT
 {
@@ -20,14 +20,14 @@ namespace OT
 		
 		bool init(sf::RenderWindow * window);
 		
-		Rocket::Core::Input::KeyIdentifier translateKey(sf::Keyboard::Key key);
+		Rml::Core::Input::KeyIdentifier translateKey(sf::Keyboard::Key key);
 		int getKeyModifiers();
 		
 	protected:
 		sf::RenderWindow * window;
 		
 	private:
-		RocketRenderer renderer;
-		RocketSystemInterface system;
+		RmlRenderer renderer;
+		RmlSystemInterface system;
 	};
 }

@@ -111,7 +111,7 @@ namespace OT {
 		double zoom;
 		double2 poi;
 
-		Rocket::Core::ElementDocument * mapWindow;
+		Rml::Core::ElementDocument * mapWindow;
 
 		void reloadGUI();
 

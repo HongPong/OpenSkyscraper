@@ -1,6 +1,6 @@
 #include <cassert>
-#include <Rocket/Controls.h>
-#include <Rocket/Debugger.h>
+#include <Rml/Controls.h>
+#include <Rml/Debugger.h>
 
 #include "Application.h"
 #include "GUIManager.h"
@@ -24,19 +24,19 @@ bool GUIManager::init(sf::RenderWindow * window)
 	this->window = window;
 	renderer.SetWindow(window);
 
-	Rocket::Core::SetRenderInterface(&renderer);
-	Rocket::Core::SetSystemInterface(&system);
+	Rml::Core::SetRenderInterface(&renderer);
+	Rml::Core::SetSystemInterface(&system);
 
-	if (!Rocket::Core::Initialise()) {
-		LOG(ERROR, "unable to initialize Rocket::Core");
+	if (!Rml::Core::Initialise()) {
+		LOG(ERROR, "unable to initialize Rml::Core");
 		return false;
 	}
-	Rocket::Controls::Initialise();
+	Rml::Controls::Initialise();
 
 	return true;
 }
 
-Rocket::Core::Input::KeyIdentifier GUIManager::translateKey(sf::Keyboard::Key key)
+Rml::Core::Input::KeyIdentifier GUIManager::translateKey(sf::Keyboard::Key key)
 {
 	return system.TranslateKey(key);
 }

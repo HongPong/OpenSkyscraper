@@ -1,4 +1,4 @@
-#include <Rocket/Debugger.h>
+#include <Rml/Debugger.h>
 #include "State.h"
 #include "Application.h"
 
@@ -14,7 +14,7 @@ void State::activate()
 {
 	active = true;
 #ifdef BUILD_DEBUG
-	Rocket::Debugger::SetContext(gui.context);
+	Rml::Debugger::SetContext(gui.context);
 #endif
 }
 

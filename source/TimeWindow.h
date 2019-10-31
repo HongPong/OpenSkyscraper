@@ -1,6 +1,6 @@
 #pragma once
-#include <Rocket/Core/ElementDocument.h>
-#include <Rocket/Core/Element.h>
+#include <Rml/Core/ElementDocument.h>
+#include <Rml/Core/Element.h>
 #include <string>
 #include "GameObject.h"
 
@@ -19,8 +19,8 @@ namespace OT {
 		void close();
 		void reload();
 		
-		Rocket::Core::ElementDocument * window;
-		Rocket::Core::Element * ratingDiv;
+		Rml::Core::ElementDocument * window;
+		Rml::Core::Element * ratingDiv;
 		
 		void updateTime();
 		void updateRating();
