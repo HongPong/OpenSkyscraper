@@ -4,7 +4,7 @@
 #include <cmath>
 
 using namespace OT;
-using namespace Rocket::Core;
+using namespace Rml::Core;
 
 
 void TimeWindowWatch::RenderElement(Rml::Core::Element* element, Rml::Core::DecoratorDataHandle element_data)
